@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="GB2312"?>
+<config>
+	<version>1.0</version>
+	<table_info>
+		<table_name>bp_report</table_name>
+		<index>
+			<index_word>report_id</index_word>
+			<index_word>patient_id</index_word>
+		</index>
+		<import_data>
+			<duplicate_word>measure_group</duplicate_word>
+		</import_data>
+	</table_info>
+	<items>
+		<item name="create_time"> 
+			<word>create_time</word>
+			<type>timestamp NOT NULL  DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间 '</type>
+		</item>
+
+		<item name="measure_group"> 
+			<word>measure_group</word>
+			<type>varchar(16)  NOT NULL COMMENT ' 测试集(检查时间)'</type>
+		</item>
+
+		<item name="measure_type"> 
+			<word>measure_type</word>
+			<type>int(4)  NOT NULL COMMENT ' 测试类型0:no_med'</type>
+		</item>
+		
+		<item name="bpd_wave_index"> 
+			<word>bpd_wave_index</word>
+			<type>int(4) DEFAULT NULL COMMENT 'bpd呼吸描记曲线索引'</type>
+		</item>
+
+		<item name="bpd_vent_best_index"> 
+			<word>bpd_vent_best_index</word>
+			<type>int(4) DEFAULT NULL COMMENT '通气最佳曲线索引'</type>
+		</item>	
+
+		<item name="bpd_vent_measure_index"> 
+			<word>bpd_vent_measure_index</word>
+			<type>varchar(64) DEFAULT NULL COMMENT '通气测量曲线索引'</type>
+		</item>	
+		
+		<item name="bpd_res_measure_index"> 
+			<word>bpd_res_measure_index</word>
+			<type>int(4) DEFAULT NULL COMMENT '气道阻力当前组测量曲线索引'</type>
+		</item>
+
+		<item name="bpd_res_interior_index"> 
+			<word>bpd_res_interior_index</word>
+			<type>varchar(64) DEFAULT NULL COMMENT '气道阻力组内测量曲线索引'</type>
+		</item>
+
+		<item name="bpd_vtg_measure_index"> 
+			<word>bpd_vtg_measure_index</word>
+			<type>varchar(64) DEFAULT NULL COMMENT 'vtg测量曲线索引'</type>
+		</item>
+				
+		<item name="operator"> 
+			<word>operator</word>
+			<type>mediumblob DEFAULT NULL COMMENT ' 操作者'</type>
+		</item>
+		<item name="operator_name"> 
+			<word>operator_name</word>
+			<type>varchar(255) DEFAULT NULL COMMENT ' 操作者名称'</type>
+		</item>
+
+		<item name="auditor"> 
+			<word>auditor</word>
+			<type>mediumblob DEFAULT NULL COMMENT ' 审核者'</type>
+		</item>
+		<item name="auditor_name"> 
+			<word>auditor_name</word>
+			<type>varchar(255) DEFAULT NULL COMMENT ' 审核者名称'</type>
+		</item>
+
+		<item name="report_id"> 
+			<word>report_id</word>
+			<type>varchar(64)  NOT NULL COMMENT ' 报告id 规则:Qt GUID生成规则'</type>
+		</item>
+
+		<item name="patient_id"> 
+			<word>patient_id</word>
+			<type>varchar(32) NOT NULL COMMENT '病人ID',CONSTRAINT bp_report_fk FOREIGN KEY(patient_id) REFERENCES patient(patient_id) ON UPDATE CASCADE ON DELETE CASCADE</type>
+			<external_show>false</external_show>
+		</item>		
+		
+		<item name="patient_info"> 
+			<word>patient_info</word>
+			<type>text NOT NULL COMMENT ' 病人信息'</type>
+		</item>
+
+		<item name="param_column"> 
+			<word>param_column</word>
+			<type>text NOT NULL COMMENT '参数列'</type>
+		</item>
+
+		<item name="param_row"> 
+			<word>param_row</word>
+			<type>text NOT NULL COMMENT '参数行'</type>
+		</item>
+
+		<item name="measure_params"> 
+			<word>measure_params</word>
+			<type>mediumblob NOT NULL COMMENT '测量参数'</type>
+		</item>	
+
+		<item name="cloud_export_param_column"> 
+			<word>cloud_export_param_column</word>
+			<type>mediumblob DEFAULT NULL COMMENT '云平台导出参数列'</type>
+		</item>
+
+		<item name="cloud_export_param_row"> 
+			<word>cloud_export_param_row</word>
+			<type>mediumblob DEFAULT NULL COMMENT '云平台导出参数行'</type>
+		</item>
+
+		<item name="cloud_export_measure_params"> 
+			<word>cloud_export_measure_params</word>
+			<type>mediumblob DEFAULT NULL COMMENT '云平台导出测量参数'</type>
+		</item>
+
+		<item name="cloud_export_data"> 
+			<word>cloud_export_data</word>
+			<type>mediumblob DEFAULT NULL COMMENT '云平台导出数据'</type>
+		</item>
+
+		<item name="measure_item"> 
+			<word>measure_item</word>
+			<type>varchar(256) DEFAULT NULL COMMENT '测量项，如"bp"'</type>
+		</item>
+		
+		<item name="report_name"> 
+			<word>report_name</word>
+			<type>varchar(32) NOT NULL COMMENT '报告模版名'</type>
+		</item>	
+
+		<item name="report_item"> 
+			<word>report_item</word>
+			<type>varchar(64) DEFAULT NULL COMMENT '报告测量项枚举值以逗号分隔'</type>
+		</item>	
+
+		<item name="quality_grade"> 
+			<word>quality_grade</word>
+			<type>varchar(256) DEFAULT NULL COMMENT '质控评级'</type>
+		</item>
+		
+		<item name="fvc_quality_grade"> 
+			<word>fvc_quality_grade</word>
+			<type>varchar(16) DEFAULT NULL COMMENT ' fvc质量等级'</type>
+		</item>
+
+		<item name="fev1_quality_grade"> 
+			<word>fev1_quality_grade</word>
+			<type>varchar(16) DEFAULT NULL COMMENT ' fev1质量等级'</type>
+		</item>
+		
+		<item name="diagnosis"> 
+			<word>diagnosis</word>
+			<type>text DEFAULT NULL COMMENT '诊断报告'</type>
+		</item>
+		
+		<item name="id"> 
+			<word>id</word>
+			<type>int UNSIGNED NOT NULL AUTO_INCREMENT,KEY (id)</type>
+		</item>	
+
+        <item name="machine_name"> 
+			<word>machine_name</word>
+			<type>varchar(64) DEFAULT NULL COMMENT '仪器名称'</type>
+		</item>	
+		
+		<item name="product_model"> 
+			<word>product_model</word>
+			<type>varchar(64) DEFAULT NULL COMMENT '仪器型号'</type>
+		</item>	
+		
+		<item name="product_sn"> 
+			<word>product_sn</word>
+			<type>varchar(64) DEFAULT NULL COMMENT '仪器SN号'</type>
+		</item>		
+
+		<item name="sync_flag"> 
+			<word>sync_flag</word>
+			<type>int(1) DEFAULT '0' COMMENT '同步标志 0表示未同步'</type>			
+		</item>		
+
+		<item name="need_sync_flag"> 
+			<word>need_sync_flag</word>
+			<type>int(1) DEFAULT '1' COMMENT '需要同步标志 1表示需要同步'</type>			
+		</item>	
+
+		<item name="delete_flag"> 
+			<word>delete_flag</word>
+			<type>int(1) DEFAULT '0' COMMENT '删除标志 0表示未删除'</type>			
+		</item>	
+
+		<item name="cloud_id"> 
+			<word>cloud_id</word>
+			<type>varchar(32) DEFAULT NULL COMMENT '云平台ID'</type>			
+		</item>		
+
+		<item name="pdf_upload_flag"> 
+			<word>pdf_upload_flag</word>
+			<type>int(1) DEFAULT '0' COMMENT 'pdf文件上传标志 0表示未上传'</type>			
+		</item>		
+
+		<item name="upload_code"> 
+			<word>upload_code</word>
+			<type>varchar(16) DEFAULT NULL COMMENT '云平台上传状态码'</type>
+		</item>	
+
+		<item name="patient_sync_flag"> 
+			<word>patient_sync_flag</word>
+			<type>int(1) NOT NULL DEFAULT '1' COMMENT '病人信息同步标志，1：已同步，0：未同步'</type>			
+		</item>	
+
+		<item name="software_version"> 
+			<word>software_version</word>
+			<type>varchar(64) DEFAULT NULL COMMENT '软件版本号'</type>
+		</item>
+
+		<item name="surface_id"> 
+			<word>surface_id</word>
+			<type>varchar(32) DEFAULT NULL COMMENT '患者表面ID'</type>
+		</item>
+
+		<item name="operator_doctor_name"> 
+			<word>operator_doctor_name</word>
+			<type>varchar(255) DEFAULT NULL COMMENT '云平台/管理系统操作医生名'</type>
+		</item>
+
+		<item name="recheck_status"> 
+			<word>recheck_status</word>
+			<type>int(4) DEFAULT 0 COMMENT '云平台/管理系统审核状态'</type>
+		</item>
+
+		<item name="review_doctor_id"> 
+			<word>review_doctor_id</word>
+			<type>varchar(64) DEFAULT NULL COMMENT '云平台/管理系统审核医生id'</type>
+		</item>
+
+		<item name="review_doctor_name"> 
+			<word>review_doctor_name</word>
+			<type>varchar(255) DEFAULT NULL COMMENT '云平台/管理系统审核医生名'</type>
+		</item>
+
+		<item name="review_doctor_common"> 
+			<word>review_doctor_common</word>
+			<type>text DEFAULT NULL COMMENT '云平台/管理系统审核医生备注'</type>
+		</item>
+
+		<item name="review_time"> 
+			<word>review_time</word>
+			<type>varchar(64) DEFAULT NULL COMMENT '云平台/管理系统审核时间'</type>
+		</item>
+
+		<item name="check_doctor_id"> 
+			<word>check_doctor_id</word>
+			<type>varchar(64) DEFAULT NULL COMMENT '云平台/管理系统确认医生id'</type>
+		</item>
+
+		<item name="check_doctor_name"> 
+			<word>check_doctor_name</word>
+			<type>varchar(255) DEFAULT NULL COMMENT '云平台/管理系统确认医生名'</type>
+		</item>
+
+		<item name="check_doctor_common"> 
+			<word>check_doctor_common</word>
+			<type>text DEFAULT NULL COMMENT '云平台/管理系统确认医生备注'</type>
+		</item>
+
+		<item name="check_time"> 
+			<word>check_time</word>
+			<type>varchar(64) DEFAULT NULL COMMENT '云平台/管理系统确认时间'</type>
+		</item>
+
+		<item name="big_received"> 
+			<word>big_received</word>
+			<type>int(4) DEFAULT 0 COMMENT '云平台/管理系统确认收到大肺待修改请求回复'</type>
+		</item>
+
+		<item name="cloud_report_id"> 
+			<word>cloud_report_id</word>
+			<type>varchar(32) DEFAULT 0 COMMENT '云平台/管理系统待修改报告id'</type>
+		</item>
+
+		<item name="report_content"> 
+			<word>report_content</word>
+			<type>mediumblob DEFAULT NULL COMMENT ' 报告pdf内容Base64编码'</type>
+		</item>
+
+		<item name="handler_type"> 
+			<word>handler_type</word>
+			<type>int(4) DEFAULT 0 COMMENT ' 云平台/管理系统处理者类型，0:未知，1:审核者，2:确认者'</type>
+		</item>
+	</items>	
+</config>
